@@ -15,11 +15,15 @@
 
 	<PBCoreTitle titleType="Episode"><?php echo item('PBCore', 'Episode Title'); ?></PBCoreTitle>
 	<PBCoreTitle titleType="Series"><?php echo item('PBCore', 'Series Title'); ?></PBCoreTitle>
-
-	<?php $tags = get_tags(array('sort_field' => 'name'), null); 
-	foreach ($tags as $tag): ?>
-	<PBCoreSubject source="Free tags"><?php echo $tag; ?></PBCoreSubject>
-	<?php endforeach; ?>
+	
+	<PBCoreSubject source="Free tags">
+	<?php // Return if the item has no tags.
+        if (!count($item->Tags)) {
+            return null;
+        }
+        foreach ($item->Tags as $tag) {
+            // tag
+            echo $tag; }?></PBCoreSubject>
 	
 	<PBCoreDescription><?php echo item('PBCore', 'Description'); ?></PBCoreDescription>
 	<PBCoreCoverage>

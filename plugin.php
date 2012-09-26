@@ -8,26 +8,29 @@ add_plugin_hook('public_theme_header', 'pbcoreThemeHeader');
 function install() {
 	$elementSetMetadata = array(
 	    'name'        => "PBCore", 
-	    'description' => "PBCore is metadata standard for audiovisual media developed by the public broadcasting community. See http://www.pbcore.org/documentation/"
+	    'description' => "PBCore is a metadata standard for audiovisual media developed by the public broadcasting community. See http://www.pbcore.org/documentation/"
 	);
 	$elements = array(
 
 	//Maps to Date Created (assetDate type:created).
 		array(
-			'label' => 'Date', 
-			'name'  => 'Date',
+			'label' => 'Date Created', 
+			'name'  => 'Date Created',
+			'data_type'   => 'Tiny Text',
 		),
 
 	//Maps to Date Broadcast (assetDate type:broadcast).
 		array(
 			'label' => 'Date Broadcast', 
 			'name'  => 'Date Broadcast',
+			'data_type'   => 'Tiny Text',
 		),
 
 	//AUTOFILL: URI for the Omeka landing page for the item. Identifier source is always Omeka.
 	    array(
 			'label' => 'Identifier', 
 			'name'  => 'Identifier',
+			'data_type'   => 'Tiny Text',
 	    ),
 
 	//Item title
@@ -62,24 +65,28 @@ function install() {
 		array(
 			'label' => 'Creator', 
 			'name'  => 'Creator',
+			'data_type'   => 'Tiny Text',
 		),
 
 	//We should have this field in our mapping doc.    
 	    array(
 			'label' => 'Interviewee', 
 			'name'  => 'Interviewee',
+			'data_type'   => 'Tiny Text',
 	     ),
 
 	//We should have this field in our mapping doc.    
 	    array(
 			'label' => 'Host', 
 			'name'  => 'Host',
+			'data_type'   => 'Tiny Text',
 	     ),
 
 	//We should have this field in our mapping doc.    
 	    array(
 			'label' => 'Interviewer', 
 			'name'  => 'Interviewer',
+			'data_type'   => 'Tiny Text',
 	     ),
 
 		array(
@@ -97,8 +104,9 @@ function install() {
 
 	//Display digital format also comes with a picklist. Mimetype of original uploaded file. Should be the mimetype of whatever the instantiation is. Potentially prepopulate. 
 		array(
-			'label' => 'Format', 
-			'name'  => 'Format',
+			'label' => 'Digital Format', 
+			'name'  => 'Digital Format',
+			'data_type'   => 'Tiny Text',
 		),
 
 	//This is not hardcoded.
@@ -121,13 +129,13 @@ function install() {
 		array(
 			'label' => 'Duration', 
 			'name'  => 'Duration',
+			'data_type'   => 'Tiny Text',
 		),
 
 		array(
 			'label'       => 'Music/Sound Used', 
 			'name'        => 'Music/Sound Used', 
 			'description' => 'Details on music or other sound clips that contributed to the piece. May include title, artist, album, timestamp, producer and record label information.',
-			'data_type'   => 'Tiny Text',
 		),
 
 		array(
@@ -152,30 +160,6 @@ function install() {
 		  ),
 	);
 	insert_element_set($elementSetMetadata, $elements);
-
-	// Extend the Oral History Item Type to add Broadcast Date & Music/Sound Used
-	$item_type_name = 'Oral History';
-
-	$_elements = array(
-	    array('name'        => 'Broadcast Date',
-	          'description' => '',
-	          'data_type'   => 'Tiny Text'),
-
-	    array('name'        => 'Host',
-	          'description' => '',
-	          'data_type'   => 'Tiny Text'),
-		array(
-			'label'       => 'Music/Sound Used', 
-			'name'        => 'Music', 
-			'description' => 'Details on music or other sound clips that contributed to the piece. May include title, artist, album, timestamp, producer and record label information.',
-			'data_type'   => 'Tiny Text',
-		),
-	);
-	
-	$db = get_db();
-	$itemType = $db->getTable('ItemType')->findByName($item_type_name);
-    $itemType->addElements($_elements);
-    $itemType->save();
 }
 
 function uninstall()
@@ -188,6 +172,7 @@ add_filter('admin_items_form_tabs', 'pbcore_items_form_tabs');
 function pbcore_items_form_tabs($tabs, $item)
 {
 	unset($tabs['Dublin Core']);
+	unset($tabs['Item Type Metadata']);
 	return $tabs;
 }
 
