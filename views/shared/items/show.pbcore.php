@@ -1,72 +1,76 @@
 <?php echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'; ?>
-<PBCoreDescriptionDocument xmlns="http://www.PBCore.org/PBCore/PBCoreNamespace.html"
+<pbcoreDescriptionDocument xmlns="http://www.PBCore.org/PBCore/PBCoreNamespace.html"
               xmlns:mt="http://www.iana.org/assignments/media-types/"
               xmlns:la="http://www.loc.gov/standards/iso639-2/"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		
 	<?php $item = get_current_item(); ?>
 
-	<PBCoreAssetDate dateType="Broadcast"><?php echo item('PBCore', 'Date Broadcast'); ?></PBCoreAssetDate>
-	<PBCoreIdentifier source="Internet Archive"><?php echo item('PBCore', 'Identifier'); ?></PBCoreIdentifier>
+	<pbcoreAssetDate dateType="Broadcast"><?php echo item('PBCore', 'Date Broadcast'); ?></pbcoreAssetDate>
+		<pbcoreAssetDate dateType="Created"><?php echo item('PBCore', 'Date Created'); ?></pbcoreAssetDate>
+	<pbcoreIdentifier source="Omeka"><?php echo item('PBCore', 'Identifier'); ?></pbcoreIdentifier>
 
 	<?php foreach (item('PBCore', 'Title', array('all'=>true)) as $title) { ?>
-	<PBCoreTitle><?php echo $title; ?></PBCoreTitle>
+	<pbcoreTitle><?php echo $title; ?></pbcoreTitle>
 	<?php } ?>
 
-	<PBCoreTitle titleType="Episode"><?php echo item('PBCore', 'Episode Title'); ?></PBCoreTitle>
-	<PBCoreTitle titleType="Series"><?php echo item('PBCore', 'Series Title'); ?></PBCoreTitle>
+	<pbcoreTitle titleType="Episode"><?php echo item('PBCore', 'Episode Title'); ?></pbcoreTitle>
+	<pbcoreTitle titleType="Series"><?php echo item('PBCore', 'Series Title'); ?></pbcoreTitle>
 	
-	<PBCoreSubject source="Free tags">
+	<pbcoreSubject source="Free tags">
 	<?php // Return if the item has no tags.
         if (!count($item->Tags)) {
             return null;
         }
         foreach ($item->Tags as $tag) {
             // tag
-            echo $tag; }?></PBCoreSubject>
+            echo $tag; }?></pbcoreSubject>
 	
-	<PBCoreDescription><?php echo item('PBCore', 'Description'); ?></PBCoreDescription>
-	<PBCoreCoverage>
+	<pbcoreDescription><?php echo item('PBCore', 'Description'); ?></pbcoreDescription>
+	<pbcoreCoverage>
 		<coverage><?php if (function_exists('geolocation_get_location_for_item') && geolocation_get_location_for_item($item, true)) { $location = geolocation_get_location_for_item($item, true); echo $location->address; } ?></coverage>
 		<coverageType>Spatial</coverageType>
-	</PBCoreCoverage>
-	<PBCoreCreator>
+	</pbcoreCoverage>
+	<pbcoreCreator>
 		<creator><?php echo item('PBCore', 'Creator'); ?></creator>
 		<creatorRole>Creator</creatorRole>
-	</PBCoreCreator>   
+	</pbcoreCreator>   
 
-	<PBCoreContributor>
+	<pbcoreContributor>
 		<contributor><?php echo item('PBCore', 'Interviewee'); ?></contributor>
 		<contributorRole><?php echo "Interviewee"; ?></contributorRole>
-	</PBCoreContributor>
-	<PBCoreContributor>	
+	</pbcoreContributor>
+	<pbcoreContributor>	
 		<contributor><?php echo item('PBCore', 'Interviewer'); ?></contributor>
 		<contributorRole><?php echo "Interviewer"; ?></contributorRole>
-	</PBCoreContributor>
-	<PBCoreContributor>
+	</pbcoreContributor>
+	<pbcoreContributor>
 		<contributor><?php echo item('PBCore', 'Host'); ?></contributor>
 		<contributorRole><?php echo "Host"; ?></contributorRole>
-	</PBCoreContributor>
+	</pbcoreContributor>
 
-	<PBCoreRightsSummary>
+	<pbcoreRightsSummary>
 	    <rightsSummary><?php echo item('PBCore', 'Rights'); ?></rightsSummary>
-	</PBCoreRightsSummary>
+	</pbcoreRightsSummary>
 
-	<PBCoreInstantiation>
-		<instantiationIdentifier source="Filename"><?php echo item('PBCore', 'Identifier'); ?></instantiationIdentifier>
-		<instantiationDigital><?php echo item('PBCore', 'Format'); ?></instantiationDigital>
+	<pbcoreInstantiation>
+		<instantiationIdentifier source="Internet Archive"></instantiationIdentifier>
+		<instantiationDigital><?php echo item('PBCore', 'Digital Format'); ?></instantiationDigital>
 		<instantiationLocation><?php echo item('PBCore', 'Digital Location'); ?></instantiationLocation>
 		<instantiationDuration><?php echo item('PBCore', 'Duration'); ?></instantiationDuration>
-	</PBCoreInstantiation>
+	</pbcoreInstantiation>
 	
-	<PBCoreInstantiation>
-		<instantiationPhysical><?php echo item('PBCore', 'Physical Format'); ?></instantiationPhysical>
+	<pbcoreInstantiation>
+	<?php foreach (item('PBCore', 'Title', array('all'=>true)) as $title) { ?>
+	<instantiationIdentifier><?php echo $title; ?></instantiationIdentifier>
+	<?php } ?>		
+	<instantiationPhysical><?php echo item('PBCore', 'Physical Format'); ?></instantiationPhysical>
 		<instantiationLocation><?php echo item('PBCore', 'Physical Location'); ?></instantiationLocation>
-	</PBCoreInstantiation>
+	</pbcoreInstantiation>
 
-	<PBCoreAnnotation annotationType="Transcription"><?php echo item('PBCore', 'Transcription'); ?></PBCoreAnnotation>
-	<PBCoreAnnotation annotationType="Notes"><?php echo item('PBCore', 'Notes'); ?></PBCoreAnnotation>
-	<PBCoreAnnotation annotationType="MusicUsed"><?php echo item('PBCore', 'Music/Sound Used'); ?></PBCoreAnnotation>
-	<PBCoreAnnotation annotationType="DatePeg"><?php echo item('PBCore', 'Date Peg'); ?></PBCoreAnnotation>
+	<pbcoreAnnotation annotationType="Transcription"><?php echo item('PBCore', 'Transcription'); ?></pbcoreAnnotation>
+	<pbcoreAnnotation annotationType="Notes"><?php echo item('PBCore', 'Notes'); ?></pbcoreAnnotation>
+	<pbcoreAnnotation annotationType="MusicUsed"><?php echo item('PBCore', 'Music/Sound Used'); ?></pbcoreAnnotation>
+	<pbcoreAnnotation annotationType="DatePeg"><?php echo item('PBCore', 'Date Peg'); ?></pbcoreAnnotation>
 
-</PBCoreDescriptionDocument>
+</pbcoreDescriptionDocument>
