@@ -8,7 +8,7 @@ add_plugin_hook('public_theme_header', 'pbcoreThemeHeader');
 function install() {
 	$elementSetMetadata = array(
 	    'name'        => "PBCore", 
-	    'description' => "PBCore is a metadata standard for audiovisual media developed by the public broadcasting community. See http://www.pbcore.org/documentation/"
+	    'description' => "PBCore is a metadata standard for audiovisual media developed by the public broadcasting community. See http://www.pbcore.org/documentation/",
 	);
 	$elements = array(
 
@@ -16,6 +16,7 @@ function install() {
 		array(
 			'label' => 'Date Created', 
 			'name'  => 'Date Created',
+			'description' => 'The original date that the media item was created. In the case of raw interviews, the date on which the interview was conducted. Format: YYYY-MM-DD',
 			'data_type'   => 'Tiny Text',
 		),
 
@@ -23,6 +24,7 @@ function install() {
 		array(
 			'label' => 'Date Broadcast', 
 			'name'  => 'Date Broadcast',
+			'description' => 'The date on which the audio was originally broadcast. Format: YYYY-MM-DD',
 			'data_type'   => 'Tiny Text',
 		),
 
@@ -30,6 +32,7 @@ function install() {
 	    array(
 			'label' => 'Identifier', 
 			'name'  => 'Identifier',
+			'description' => 'Best practice is to identify the media item (whether analog or digital) by means of an unambiguous string or number corresponding to an established or formal identification system if one exists. We recommend using the item\'s Omeka URL. (e.g., http://myomeka.com/items/show/1) If you are using the Internet Archive Plugin, this field will be autofilled.',
 			'data_type'   => 'Tiny Text',
 	    ),
 
@@ -37,12 +40,14 @@ function install() {
 	    array(
 			'label' => 'Title', 
 	        'name'  => 'Title',
+			'description' => 'The name given to the media item you are cataloging. It is the unique name everyone should use to refer to or search for a particular media item. There are situations in which no proper or given title is available, e.g., photographs or segments harvested from a longer work or program. In these situations a "supplied title" must be invented and used to name the media item. Be considerate of and sensitive to the end user who is attempting to search for your media item.',
+			'data_type'	=> 'Tiny Text',
 	    ),
 
 		array(
 	   		'label' => 'Episode Title', 
 	   		'name'  => 'Episode Title',
-	   		'description' => 'The episode or piece to which a media item contributed.',
+	   		'description' => 'If applicable, the episode or piece to which a media item contributed.',
 	   		'data_type'   => 'Tiny Text',
 	   		'_refines'    => 'Title',
 	       ), 
@@ -59,12 +64,14 @@ function install() {
 	    array(
 			'label' => 'Description', 
 			'name'  => 'Description',
+			'description' => 'Uses free-form text to report abstracts, or summaries about the intellectual content of a media item you are cataloging. The information may be in the form of a paragraph giving an individual program description or brief content reviews.',
 	     ),
 
 	//AUTOFILL: but make editable. 	
 		array(
 			'label' => 'Creator', 
 			'name'  => 'Creator',
+			'description'	=> 'Identifies a person or organization primarily responsible for creating a media item. The creator may be considered an author and could be one or more people, a business, organization, group, project or service. (For personal names use "LastName, FirstName MiddleName, Suffix").',
 			'data_type'   => 'Tiny Text',
 		),
 
@@ -72,26 +79,30 @@ function install() {
 	    array(
 			'label' => 'Interviewee', 
 			'name'  => 'Interviewee',
+			'description' => 'The person(s) being interviewed. (For personal names use "LastName, FirstName MiddleName, Suffix").',
 			'data_type'   => 'Tiny Text',
 	     ),
+	
+	//We should have this field in our mapping doc.    
+	    array(
+			'label' => 'Interviewer', 
+			'name'  => 'Interviewer',
+			'description'	=> 'The person(s) conducting the interview. (For personal names use "LastName, FirstName MiddleName, Suffix").',
+			'data_type'   => 'Tiny Text',
+		     ),
 
 	//We should have this field in our mapping doc.    
 	    array(
 			'label' => 'Host', 
 			'name'  => 'Host',
-			'data_type'   => 'Tiny Text',
-	     ),
-
-	//We should have this field in our mapping doc.    
-	    array(
-			'label' => 'Interviewer', 
-			'name'  => 'Interviewer',
+			'description' => 'If applicable, the person hosting the broadcast piece. (For personal names use "LastName, FirstName MiddleName, Suffix").',
 			'data_type'   => 'Tiny Text',
 	     ),
 
 		array(
 			'label' => 'Rights', 
 			'name'  => 'Rights',
+			'description'	=> 'Information about rights to the media item. Typically, rights information includes a statement about various property rights associated with the resource, including intellectual property rights.',
 		),
 
 	//Physical format comes with a picklist
@@ -129,6 +140,7 @@ function install() {
 		array(
 			'label' => 'Duration', 
 			'name'  => 'Duration',
+			'description'	=> 'Provides a timestamp for the overall length or duration of the audio. Represents the playback time. Format: HH:MM:SS',
 			'data_type'   => 'Tiny Text',
 		),
 
@@ -141,7 +153,7 @@ function install() {
 		array(
 	   		'label' => 'Date Peg', 
 	   		'name'  => 'Date Peg',
-	   		'description' => 'A holidays or other date relevant to the item.',
+	   		'description' => 'A holiday or other date relevant to the item (e.g., Christmas, Yom Kippur, Independence Day).',
 	   		'data_type'   => 'Tiny Text',
 	       ),
 
